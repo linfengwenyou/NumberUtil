@@ -44,4 +44,40 @@
 	return number.stringValue;
 }
 
+
+- (NSString *(^)(NSUInteger))moneyThoundFormat{
+    return ^(NSUInteger scale) {
+        return [self moneyFormatWithScale:scale];
+    };
+}
+
+
+- (NSNumber *(^)(NSNumber *))add {
+    return ^(NSNumber *value) {
+        NSDecimalNumber *number1 = [NSDecimalNumber decimalNumberWithString:self.stringValue];
+        NSDecimalNumber *number2 = [NSDecimalNumber decimalNumberWithString:value.stringValue];
+        return [number1 decimalNumberByAdding:number2];
+    };
+}
+
+
+
+/** 格式化 */
+- (NSString *)moneyFormatWithScale:(NSUInteger)scale {
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    NSString *formatString = @",###";
+    if (scale > 0) {
+        formatString = [formatString stringByAppendingString:@"."];
+        int i = 0;
+        while (scale > i) {
+            formatString = [formatString stringByAppendingString:@"0"];
+            i++;
+        }
+    }
+    formatString = [formatString stringByAppendingString:@";"];
+    [numberFormatter setPositiveFormat:formatString];
+    return [numberFormatter stringFromNumber:self];
+}
+
+
 @end

@@ -31,7 +31,13 @@
 /** 银行模式,在四舍五入的基础上加一个判断：当【最后一位】是5的时候，只会舍入成偶数 */
 @property (nonatomic, copy, readonly) NSString * (^roundBanker)(NSUInteger scale);
 
+/** 返回金额千分格式,尾数四舍五入 */
+@property (nonatomic, copy, readonly) NSString * (^moneyThoundFormat)(NSUInteger scale);
 
+/** 加法 */
+@property (nonatomic, strong, readonly) NSNumber * (^add)(NSNumber *value);
+
+//@property (nonatomic, strong, readonly) NSNumber * (^reduce)(NSNumber *value);
 // 做好加减乘除
 
 
